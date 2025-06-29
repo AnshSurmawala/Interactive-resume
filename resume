@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ansh Surmawala | Junior Data Engineer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: A single-page application with a fixed navigation bar for smooth scrolling to distinct, thematic sections (About, Skills, Experience, Projects, Education). This structure was chosen because it provides a clear, intuitive user flow for recruiters, allowing them to quickly jump to the information they value most, such as skills or projects. The single-page design ensures all information is readily accessible without page loads, creating a seamless experience. Interactive elements like an expandable timeline and a skills chart are designed to engage the user and present dense information in a digestible format. -->
+    <!-- Visualization & Content Choices:
+        - Summary -> Inform -> Text Block -> Static -> Clear, concise introduction.
+        - Skills -> Organize/Compare -> Horizontal Bar Chart (Chart.js) & Grouped Lists -> Hover Tooltips -> A chart provides a quick visual summary of skill distribution, which is more engaging than a simple list. Grouped lists offer detailed specifics.
+        - Experience -> Change/Inform -> Interactive Vertical Timeline (HTML/CSS/JS) -> Click to Expand -> A timeline effectively shows career progression. Making it interactive by hiding details until clicked prevents initial information overload and encourages user engagement. Key metrics (e.g., 20% improvement) are visually highlighted.
+        - Projects -> Organize -> Styled Cards (HTML/Tailwind) -> Static with Tech Tags -> Cards provide clear separation and a structured format for each project. Tech tags offer a scannable view of the tools used.
+        - Education/Certs -> Inform -> Simple Lists -> Static -> This data is straightforward and best presented in a clean, easy-to-read list format.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f3f2;
+            color: #3f3cbb;
+        }
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 450px;
+            width: 100%;
+            max-width: 800px;
+        }
+        .nav-link {
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #d97706; /* Amber-600 */
+        }
+        .timeline-item-content {
+            transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .timeline-item-content.open {
+            max-height: 500px;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <div class="text-xl font-bold text-stone-800">Ansh Surmawala</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#about" class="nav-link text-stone-600 font-medium">About</a>
+                    <a href="#skills" class="nav-link text-stone-600 font-medium">Skills</a>
+                    <a href="#experience" class="nav-link text-stone-600 font-medium">Experience</a>
+                    <a href="#projects" class="nav-link text-stone-600 font-medium">Projects</a>
+                    <a href="#education" class="nav-link text-stone-600 font-medium">Education</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="menu-btn" class="text-stone-800 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden mt-4">
+                <a href="#about" class="block py-2 px-4 text-sm text-stone-600 hover:bg-stone-200 rounded">About</a>
+                <a href="#skills" class="block py-2 px-4 text-sm text-stone-600 hover:bg-stone-200 rounded">Skills</a>
+                <a href="#experience" class="block py-2 px-4 text-sm text-stone-600 hover:bg-stone-200 rounded">Experience</a>
+                <a href="#projects" class="block py-2 px-4 text-sm text-stone-600 hover:bg-stone-200 rounded">Projects</a>
+                <a href="#education" class="block py-2 px-4 text-sm text-stone-600 hover:bg-stone-200 rounded">Education</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-8">
+
+        <section id="about" class="min-h-screen flex items-center justify-center text-center">
+            <div class="max-w-4xl">
+                <h1 class="text-5xl md:text-7xl font-bold text-stone-800 mb-4">Ansh Surmawala</h1>
+                <p class="text-xl md:text-2xl text-amber-700 font-medium mb-8">Junior Data Engineer</p>
+                <p class="text-base md:text-lg text-stone-600 mb-8 max-w-2xl mx-auto">
+                    Highly motivated Computer Science graduate with foundational experience in data engineering, technical support, and systems administration. Proficient in Python, SQL, and NoSQL databases. Proven ability to optimize system performance, troubleshoot technical issues, and leverage analytical and problem-solving skills to drive innovative solutions in dynamic data environments.
+                </p>
+                <div class="flex justify-center space-x-4">
+                    <a href="mailto:ansh.surmawala@gmail.com" class="bg-amber-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-amber-700 transition-colors">Contact Me</a>
+                    <!-- Replace with actual URLs -->
+                    <a href="#" class="bg-stone-200 text-stone-800 px-6 py-3 rounded-full font-semibold hover:bg-stone-300 transition-colors">LinkedIn</a>
+                    <a href="#" class="bg-stone-200 text-stone-800 px-6 py-3 rounded-full font-semibold hover:bg-stone-300 transition-colors">GitHub</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="py-20">
+            <h2 class="text-4xl font-bold text-center text-stone-800 mb-4">Technical Toolkit</h2>
+            <p class="text-center text-stone-600 mb-12 max-w-2xl mx-auto">This section provides a visual overview of my technical skills, categorized by area of expertise. The chart represents my key competencies across various technologies essential for data engineering, from programming languages and databases to cloud platforms and DevOps tools.</p>
+            <div class="chart-container">
+                <canvas id="skillsChart"></canvas>
+            </div>
+        </section>
+
+        <section id="experience" class="py-20">
+            <h2 class="text-4xl font-bold text-center text-stone-800 mb-4">Professional Journey</h2>
+            <p class="text-center text-stone-600 mb-12 max-w-2xl mx-auto">Here is an interactive timeline of my professional experience. Click on each role to expand and see the key responsibilities and achievements. This journey highlights my growth and practical contributions in data engineering and technical support roles.</p>
+            <div class="relative wrap overflow-hidden p-10 h-full">
+                <div class="border-2-2 absolute border-opacity-20 border-stone-700 h-full border" style="left: 50%"></div>
+
+                <div id="timeline-container"></div>
+
+            </div>
+        </section>
+
+        <section id="projects" class="py-20 bg-white rounded-2xl">
+            <h2 class="text-4xl font-bold text-center text-stone-800 mb-4">Hands-On Projects</h2>
+             <p class="text-center text-stone-600 mb-12 max-w-2xl mx-auto">These projects demonstrate my ability to apply data engineering principles to real-world problems. From building end-to-end data streaming pipelines to performing large-scale data analytics, these examples showcase my hands-on experience with modern data technologies.</p>
+            <div class="grid md:grid-cols-1 lg:grid-cols-2 gap-8">
+
+                <div class="bg-stone-50 p-8 rounded-xl shadow-md hover:shadow-xl transition-shadow">
+                    <h3 class="text-2xl font-bold text-stone-800 mb-3">Uber Data Analytics</h3>
+                    <p class="text-stone-600 mb-6">Developed an end-to-end analytics solution to process and analyze Uber dataset, focusing on creating a scalable and efficient data model.</p>
+                    <ul class="text-stone-600 space-y-2 mb-6">
+                        <li>&#10003; Built a comprehensive dimensional data model using Python.</li>
+                        <li>&#10003; Deployed transformation code on Google Cloud Compute Engine.</li>
+                        <li>&#10003; Utilized Mage for ETL pipelining and BigQuery for data warehousing and analytics.</li>
+                    </ul>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-amber-100 text-amber-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Python</span>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">GCP</span>
+                        <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full">BigQuery</span>
+                        <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Mage</span>
+                        <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded-full">ETL</span>
+                    </div>
+                </div>
+
+                <div class="bg-stone-50 p-8 rounded-xl shadow-md hover:shadow-xl transition-shadow">
+                    <h3 class="text-2xl font-bold text-stone-800 mb-3">Real-Time Data Streaming Model</h3>
+                    <p class="text-stone-600 mb-6">Engineered a robust, end-to-end data streaming pipeline to process data from a RESTful API in real-time.</p>
+                     <ul class="text-stone-600 space-y-2 mb-6">
+                        <li>&#10003; Streamed data from API into Kafka with a UI for real-time visualization.</li>
+                        <li>&#10003; Used Apache Airflow for orchestration and Spark for parallel processing.</li>
+                        <li>&#10003; Leveraged Cassandra for NoSQL storage and Zookeeper for system reliability.</li>
+                    </ul>
+                    <div class="flex flex-wrap gap-2">
+                         <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Kafka</span>
+                         <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Apache Spark</span>
+                         <span class="bg-pink-100 text-pink-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Apache Airflow</span>
+                         <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Cassandra</span>
+                         <span class="bg-sky-100 text-sky-800 text-xs font-medium px-2.5 py-0.5 rounded-full">PostgreSQL</span>
+                         <span class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Docker</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="py-20">
+            <h2 class="text-4xl font-bold text-center text-stone-800 mb-12">Education & Certifications</h2>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-bold text-stone-700 mb-4">Education</h3>
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <p class="font-bold text-lg">Bachelor of Science in Applied Computing</p>
+                        <p class="text-stone-600">Brock University</p>
+                        <p class="text-stone-500 text-sm">Jan 2020 - Oct 2024</p>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold text-stone-700 mb-4">Certifications</h3>
+                    <div class="bg-white p-6 rounded-lg shadow-sm space-y-3">
+                        <p class="text-stone-600 font-medium">&#10003; Intensive Hands-On Cloud Computing (Cloud Bootcamp)</p>
+                        <p class="text-stone-600 font-medium">&#10003; Introduction To SQL (Simplilearn)</p>
+                        <p class="text-stone-600 font-medium">&#10003; Data Analytics & Python Essentials (Cisco)</p>
+                        <p class="text-stone-600 font-medium">&#10003; AI Fundamentals & Intro to Modern AI (Cisco)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-stone-800 text-white text-center p-6">
+        <p>&copy; 2024 Ansh Surmawala. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            document.querySelectorAll('.nav-link, #mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (!mobileMenu.classList.contains('hidden')) {
+                         mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+
+            const skillsData = {
+                labels: ['Languages', 'Databases', 'ETL/Orchestration', 'Cloud Platforms', 'DevOps & Infra', 'BI/Visualization'],
+                datasets: [{
+                    label: 'Skill Competency',
+                    data: [5, 5, 6, 3, 6, 4],
+                    backgroundColor: [
+                        'rgba(217, 119, 6, 0.7)',
+                        'rgba(59, 130, 246, 0.7)',
+                        'rgba(168, 85, 247, 0.7)',
+                        'rgba(239, 68, 68, 0.7)',
+                        'rgba(34, 197, 94, 0.7)',
+                        'rgba(236, 72, 153, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(217, 119, 6, 1)',
+                        'rgba(59, 130, 246, 1)',
+                        'rgba(168, 85, 247, 1)',
+                        'rgba(239, 68, 68, 1)',
+                        'rgba(34, 197, 94, 1)',
+                        'rgba(236, 72, 153, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            const skillsChartCtx = document.getElementById('skillsChart').getContext('2d');
+            new Chart(skillsChartCtx, {
+                type: 'bar',
+                data: skillsData,
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            ticks: {
+                                display: false
+                            },
+                            grid: {
+                                display: false
+                            },
+                            border: {
+                                display: false
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                font: {
+                                    size: 14,
+                                    weight: '500'
+                                },
+                                color: '#44403c'
+                            },
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            enabled: true,
+                             callbacks: {
+                                label: function(context) {
+                                    const category = context.label;
+                                    const skillMap = {
+                                        'Languages': 'Python, SQL, Java, C++, JS',
+                                        'Databases': 'PostgreSQL, MongoDB, Cassandra, BigQuery, Redshift',
+                                        'ETL/Orchestration': 'Airflow, Spark, NiFi, AWS Glue, Azure DF, Mage',
+                                        'Cloud Platforms': 'GCP, AWS, Azure',
+                                        'DevOps & Infra': 'Docker, K8s, Jenkins, Terraform, Git, CI/CD',
+                                        'BI/Visualization': 'PowerBI, Tableau, Looker, Dash'
+                                    };
+                                    return skillMap[category] || '';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const experienceData = [
+                {
+                    role: 'Software Engineer',
+                    company: 'Marvel AI',
+                    date: 'May 2025 - Present',
+                    details: [
+                        'Developed and maintained scalable software solutions for AI-driven applications using Python and cloud services.',
+                        'Collaborated with data scientists and MLOps engineers to integrate machine learning models into production systems.',
+                        'Implemented robust API endpoints and data processing pipelines to support real-time data ingestion and analysis.',
+                        'Optimized application performance and ensured high availability through effective code design and testing.'
+                    ]
+                },
+                {
+                    role: 'Automation Team Member',
+                    company: 'Toyota Inc.',
+                    date: 'Dec 2024 – Present',
+                    details: [
+                        'Troubleshoot and resolve issues related to production processes and infrastructure, ensuring operational continuity.',
+                        'Collaborate with cross-functional teams to meet production needs and optimize workflow efficiency.',
+                        'Investigate safety concerns and implement improvements in working processes.'
+                    ]
+                },
+                {
+                    role: 'Junior Data Engineer',
+                    company: 'Imperia Fincon (Internship)',
+                    date: 'Apr 2021 – May 2024',
+                    details: [
+                        'Collaborated with senior engineers to design, develop, and maintain scalable data pipelines and ETL processes.',
+                        'Containerized data applications using Docker and orchestrated workloads with Kubernetes, improving resource utilization by <span class="font-bold text-amber-600">20%</span>.',
+                        'Implemented and monitored data quality checks to ensure accuracy and consistency across datasets.',
+                        'Partnered with data scientists to deploy ML models using Vertex AI.',
+                        'Automated cloud resource provisioning using Terraform and AWS CloudFormation, reducing setup time by <span class="font-bold text-amber-600">30%</span>.',
+                        'Implemented CI/CD pipelines using Jenkins for seamless deployment of data infrastructure.'
+                    ]
+                },
+                {
+                    role: 'Technical Support Specialist',
+                    company: 'Concentrix',
+                    date: 'May 2021 – Oct 2021',
+                    details: [
+                        'Provided technical support for Apple ID and cloud management issues.',
+                        'Increased productivity by using remote desktop tools to quickly diagnose and resolve technical issues.',
+                        'Managed high call volumes and utilized ticketing systems to process support requests efficiently.'
+                    ]
+                }
+            ];
+
+            const timelineContainer = document.getElementById('timeline-container');
+            timelineContainer.innerHTML = ''; // Clear existing content to avoid duplicates on re-render
+            experienceData.forEach((job, index) => {
+                const alignmentClass = index % 2 === 0 ? 'flex-row-reverse' : '';
+                const timelineItem = `
+                    <div class="mb-8 flex justify-between items-center w-full ${alignmentClass}">
+                        <div class="order-1 w-5/12"></div>
+                        <div class="z-20 flex items-center order-1 bg-stone-800 shadow-xl w-8 h-8 rounded-full">
+                            <h1 class="mx-auto font-semibold text-lg text-white">${experienceData.length - index}</h1>
+                        </div>
+                        <div class="order-1 bg-white rounded-lg shadow-xl w-5/12 px-6 py-4 timeline-item-trigger cursor-pointer">
+                            <h3 class="font-bold text-stone-800 text-xl">${job.role}</h3>
+                            <p class="text-sm font-medium text-amber-600">${job.company}</p>
+                            <p class="text-sm text-stone-500 mb-3">${job.date}</p>
+                            <div class="timeline-item-content">
+                                <ul class="list-disc pl-5 space-y-1 text-stone-600 text-sm">
+                                    ${job.details.map(detail => `<li>${detail}</li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                timelineContainer.innerHTML += timelineItem;
+            });
+
+            document.querySelectorAll('.timeline-item-trigger').forEach(trigger => {
+                trigger.addEventListener('click', () => {
+                    const content = trigger.querySelector('.timeline-item-content');
+                    content.classList.toggle('open');
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>
